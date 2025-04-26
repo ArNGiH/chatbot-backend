@@ -15,8 +15,8 @@ async def verify_token(app_token:str=Header(...)):
     try:
         payload=jwt.decode(app_token,PRIVATE_KEY,algorithms=["HS256"])
         return payload
-    except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
     except ExpiredSignatureError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token expired")
+    except JWTError:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
 

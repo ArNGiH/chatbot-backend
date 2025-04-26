@@ -13,8 +13,10 @@ class UserTable(Base):
     email = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
     
-    role = Column(String, nullable=False, default="developer")  
-    is_active = Column(Boolean, nullable=False, default=True)   
+    # Only 'candidate' or 'recruiter' are valid roles
+    role = Column(String, nullable=False, default="candidate") 
+    
+    is_active = Column(Boolean, nullable=False, default=True)
 
-    created_at = Column(DateTime, nullable=False, server_default=func.now())
-    last_logged_in = Column(DateTime, nullable=False, server_default=func.now())
+    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    last_logged_in = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
